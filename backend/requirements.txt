@@ -1,0 +1,13 @@
+asyncpg
+redis
+cryptography
+fastapi
+uvicorn
+httpx
+pyjwt[crypto]
+pydantic
+sentence-transformers
+onnxruntime
+pillow
+numpy
+aiokafka

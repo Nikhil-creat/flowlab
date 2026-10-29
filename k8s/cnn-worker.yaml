@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: flowlab-cnn-worker}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: cnn-worker}}
+  template:
+    metadata: {labels: {app: cnn-worker}}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 10001}
+      containers:
+        - name: cnn
+          image: ghcr.io/nikhil-creat/flowlab-backend:latest
+          command: ["python", "cnn_worker.py"]
+          resources: {requests: {cpu: "500m", memory: 1Gi}, limits: {cpu: "1500m", memory: 2Gi}}
+          securityContext: {readOnlyRootFilesystem: true, allowPrivilegeEscalation: false, capabilities: {drop: [ALL]}}
